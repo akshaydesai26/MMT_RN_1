@@ -12,8 +12,44 @@ import {
   import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import { useData } from './DataProvider';
+import {
+    NavigationParams,
+    NavigationScreenProp,
+    NavigationState
+  } from 'react-navigation';
+  
+import { RouteProp } from '@react-navigation/native';
 
-const Detail = (props)=>{
+interface Props{
+    navigation: NavigationScreenProp<NavigationState, NavigationParams>,
+    route: RouteProp<{params: { item: userArray }}, 'params'>
+}
+
+interface userArray{
+    "id": number,
+    "name": string,
+    "username": string,
+    "email": string,
+    "address": {
+      "street": string,
+      "suite": string,
+      "city": string,
+      "zipcode": string,
+      "geo": {
+        "lat": string,
+        "lng": string
+      }
+    },
+    "phone": string,
+    "website": string,
+    "company": {
+      "name": string,
+      "catchPhrase": string,
+      "bs": string
+    }
+}
+
+const Detail: React.FC<Props> = (props)=>{
 
     const [posts,setPosts]=useState<[]>([]);
     const [filteredPosts,setFilteredPosts]=useState<[]>([]);

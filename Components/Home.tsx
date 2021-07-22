@@ -18,10 +18,19 @@ import React from 'react';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import { useData } from './DataProvider';
+import {
+    NavigationParams,
+    NavigationScreenProp,
+    NavigationState
+  } from 'react-navigation';
 
-const Home = ({navigation})=>{
-    const [renderedList,setRenderedList]=useState([]);
-    const [filteredList,setFilteredList]=useState([]);
+interface Props{
+    navigation: NavigationScreenProp<NavigationState, NavigationParams>
+}
+
+const Home: React.FC<Props> = ({navigation})=>{
+    const [renderedList,setRenderedList]=useState<userArray[]>([]);
+    const [filteredList,setFilteredList]=useState<userArray[]>([]);
     const [listStart,setListStart]=useState(0);
     const [searchText,setSearchText]=useState('');
 
@@ -218,3 +227,27 @@ const styles = StyleSheet.create({
    elevation: 5,
    borderRadius: 10}
   });
+
+  interface userArray{
+    "id": number,
+    "name": string,
+    "username": string,
+    "email": string,
+    "address": {
+      "street": string,
+      "suite": string,
+      "city": string,
+      "zipcode": string,
+      "geo": {
+        "lat": string,
+        "lng": string
+      }
+    },
+    "phone": string,
+    "website": string,
+    "company": {
+      "name": string,
+      "catchPhrase": string,
+      "bs": string
+    }
+}

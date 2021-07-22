@@ -1,14 +1,57 @@
 import React,{useState,useEffect,useContext} from 'react'
 import axios from 'axios';
 
-const DataContext = React.createContext({});
+
+interface Context{
+    dataList: userArray[] | [],
+    deleteFromDataList: (id:number)=>void,
+    addToDataList: (name:string,email:string,age:string,suite:string,phone:string)=>void
+
+}
+
+const defaultContext={
+    dataList:[],
+    deleteFromDataList: (id:number)=>{console.log('default')},
+    addToDataList: (name:string,email:string,age:string,suite:string,phone:string)=>{console.log('default')}
+}
+
+const DataContext = React.createContext<Context>(defaultContext);
 
 export function useData(){
     return useContext(DataContext);
 }
 
-const DataProvider=({children})=>{
-    const [dataList, setDataList] = useState([]);
+interface userArray{
+        "id": number,
+        "name": string,
+        "username": string,
+        "email": string,
+        "address": {
+          "street": string,
+          "suite": string,
+          "city": string,
+          "zipcode": string,
+          "geo": {
+            "lat": string,
+            "lng": string
+          }
+        },
+        "phone": string,
+        "website": string,
+        "company": {
+          "name": string,
+          "catchPhrase": string,
+          "bs": string
+        }
+}
+
+interface Props{
+
+}
+
+
+const DataProvider: React.FC<Props>=({children})=>{
+    const [dataList, setDataList] = useState<userArray[]>([]);
 
     useEffect(()=>{
         axios.get(`https://jsonplaceholder.typicode.com/users`)
@@ -16,7 +59,7 @@ const DataProvider=({children})=>{
           const persons = res.data;
           console.log('recalling data');
           //let newPersonsList = [...persons,...persons,...persons,...persons,...persons];
-          let newPersonsList: any = [...persons];
+          let newPersonsList: userArray[] = [...persons];
           setDataList(newPersonsList);
           
         })

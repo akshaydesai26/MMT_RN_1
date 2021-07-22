@@ -11,8 +11,17 @@ import {
   } from 'react-native';
   import React, { useState } from 'react';
 import { useData } from './DataProvider';
+import {
+    NavigationParams,
+    NavigationScreenProp,
+    NavigationState
+  } from 'react-navigation';
 
-const AddRecord = (props)=>{
+interface Props{
+    navigation: NavigationScreenProp<NavigationState, NavigationParams>
+}
+
+const AddRecord: React.FC<Props> = ({navigation})=>{
 
     const [name,setName]=useState('');
     const [email,setEmail]=useState('');
@@ -24,7 +33,7 @@ const AddRecord = (props)=>{
 
     const onSubmit = ()=>{
         addToDataList(name,email,age,address,phone);
-        props.navigation.goBack();
+        navigation.goBack();
     }
 
     return(
