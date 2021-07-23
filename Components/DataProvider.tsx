@@ -21,24 +21,24 @@ export function useData(){
     return useContext(DataContext);
 }
 
-interface userArray{
+export interface userArray{
         "id": number,
         "name": string,
-        "username": string,
+        "username"?: string,
         "email": string,
         "address": {
-          "street": string,
+          "street"?: string,
           "suite": string,
-          "city": string,
-          "zipcode": string,
-          "geo": {
+          "city"?: string,
+          "zipcode"?: string,
+          "geo"?: {
             "lat": string,
             "lng": string
           }
         },
         "phone": string,
-        "website": string,
-        "company": {
+        "website"?: string,
+        "company"?: {
           "name": string,
           "catchPhrase": string,
           "bs": string
@@ -76,7 +76,7 @@ const DataProvider: React.FC<Props>=({children})=>{
         let newRecord = {
           id:Math.round(Math.random()*10000),name:name,email:email,age:age,address:{suite:suite},phone:phone
         }
-        let newList:any = [newRecord,...dataList];
+        let newList:userArray[] = [newRecord,...dataList];
         setDataList(newList);
    }
 

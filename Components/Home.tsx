@@ -23,6 +23,7 @@ import {
     NavigationScreenProp,
     NavigationState
   } from 'react-navigation';
+  import {userArray} from './DataProvider';
 
 interface Props{
     navigation: NavigationScreenProp<NavigationState, NavigationParams>
@@ -56,8 +57,8 @@ const Home: React.FC<Props> = ({navigation})=>{
   }
 
   const setFilter=()=>{
-    let temp_list:any[]=dataList;
-    let filteredData:any = temp_list.filter((item)=>{
+    let temp_list:userArray[]=dataList;
+    let filteredData:userArray[] = temp_list.filter((item)=>{
       let itemData = `${item['name'].toUpperCase()}`;
       let searchData = searchText.toUpperCase();
       
@@ -227,27 +228,3 @@ const styles = StyleSheet.create({
    elevation: 5,
    borderRadius: 10}
   });
-
-  interface userArray{
-    "id": number,
-    "name": string,
-    "username": string,
-    "email": string,
-    "address": {
-      "street": string,
-      "suite": string,
-      "city": string,
-      "zipcode": string,
-      "geo": {
-        "lat": string,
-        "lng": string
-      }
-    },
-    "phone": string,
-    "website": string,
-    "company": {
-      "name": string,
-      "catchPhrase": string,
-      "bs": string
-    }
-}
